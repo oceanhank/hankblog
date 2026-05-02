@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import WorkCard from '../../components/WorkCard.astro';
+import { getCollection } from 'astro:content';
+
+const allWorks = await getCollection('works', ({ data }) => !data.draft);
+const works = allWorks.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<BaseLayout
+  title="Works"
+  description="Hank Chou 的作品集 — 網站設計、行動 App 與品牌識別設計專案展示。"
+>
+  <section class="container" style="padding-top: var(--space-16); padding-bottom: var(--space-16);">
+    <h1 style="margin-bottom: var(--space-4);">My Works</h1>
+    <p style="color: var(--color-text-muted); margin-bottom: var(--space-12);">
+      精選設計與開發專案
+    </p>
+
+    {works.length === 0 ? (
+      <p style="color: var(--color-text-muted);">作品集即將更新，敬請期待！</p>
+    ) : (
+      <div class="card-grid">
+        {works.map((work) => (
+          <WorkCard
+            title={work.data.title}
+            coverImage={work.data.coverImage}
+            description={work.data.description}
+            tags={work.data.tags}
+            slug={work.id}
+          />
+        ))}
+      </div>
+    )}
+  </section>
+</BaseLayout>

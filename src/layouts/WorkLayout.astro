@@ -1,0 +1,37 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  coverImage: string;
+  tags: string[];
+  ogImage?: string;
+}
+
+const { title, description, coverImage, tags, ogImage } = Astro.props;
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title={title} description={description} ogImage={ogImage ?? coverImage}>
+  <article class="container" style="padding-top: var(--space-16); padding-bottom: var(--space-16);">
+    <header style="margin-bottom: var(--space-8);">
+      <h1 style="margin-bottom: var(--space-4);">{title}</h1>
+      <p style="color: var(--color-text-muted); margin-bottom: var(--space-6);">{description}</p>
+      <div style="display: flex; flex-wrap: wrap; gap: var(--space-2);">
+        {tags.map((tag) => <span class="tag">{tag}</span>)}
+      </div>
+    </header>
+    {coverImage && (
+      <img
+        src={coverImage.startsWith('/') ? `${base}${coverImage.slice(1)}` : coverImage}
+        alt={`${title} cover`}
+        style="width: 100%; border-radius: 0.75rem; margin-bottom: var(--space-8); object-fit: cover; max-height: 480px;"
+        loading="lazy"
+      />
+    )}
+    <div class="prose">
+      <slot />
+    </div>
+  </article>
+</BaseLayout>

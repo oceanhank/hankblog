@@ -1,0 +1,71 @@
+---
+interface Props {
+  currentPage: number;
+  totalPages: number;
+  baseUrl: string;
+}
+
+const { currentPage, totalPages, baseUrl } = Astro.props;
+
+const prevUrl = currentPage > 1
+  ? `${baseUrl}${currentPage === 2 ? '' : `/${currentPage - 1}`}`
+  : null;
+const nextUrl = currentPage < totalPages ? `${baseUrl}/${currentPage + 1}` : null;
+---
+
+{totalPages > 1 && (
+  <nav class="pagination" aria-label="Pagination">
+    {prevUrl ? (
+      <a href={prevUrl} class="pagination-btn">&larr; 上一頁</a>
+    ) : (
+      <span class="pagination-btn disabled">&larr; 上一頁</span>
+    )}
+
+    <span class="pagination-info">
+      {currentPage} / {totalPages}
+    </span>
+
+    {nextUrl ? (
+      <a href={nextUrl} class="pagination-btn">下一頁 &rarr;</a>
+    ) : (
+      <span class="pagination-btn disabled">下一頁 &rarr;</span>
+    )}
+  </nav>
+)}
+
+<style>
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-4);
+    margin-top: var(--space-12);
+  }
+
+  .pagination-btn {
+    padding: var(--space-2) var(--space-4);
+    border: 2px solid var(--color-accent-teal);
+    border-radius: 0.375rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--color-accent-teal);
+    transition: background-color 0.2s, color 0.2s;
+  }
+
+  a.pagination-btn:hover {
+    background-color: var(--color-accent-teal);
+    color: #fff;
+  }
+
+  .pagination-btn.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    border-color: var(--color-border);
+    color: var(--color-text-muted);
+  }
+
+  .pagination-info {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+</style>

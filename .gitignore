@@ -1,0 +1,8 @@
+.spectra/
+openspec/.vector-search.db*
+dist/
+node_modules/
+.env
+.env.*
+!.env.example
+.astro/

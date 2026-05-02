@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import Pagination from '../../components/Pagination.astro';
+import { getCollection } from 'astro:content';
+
+const base = import.meta.env.BASE_URL;
+const PAGE_SIZE = 10;
+
+export async function getStaticPaths() {
+  const PAGE_SIZE = 10;
+  const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+  const sorted = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+  const totalPages = Math.ceil(sorted.length / PAGE_SIZE);
+
+  return Array.from({ length: totalPages }, (_, i) => ({
+    params: { page: String(i + 1) },
+    props: {
+      posts: sorted.slice(i * PAGE_SIZE, (i + 1) * PAGE_SIZE),
+      currentPage: i + 1,
+      totalPages,
+    },
+  }));
+}
+
+const { posts, currentPage, totalPages } = Astro.props;
+---
+
+<BaseLayout
+  title={`Blog — Page ${currentPage}`}
+  description="Hank Chou 的部落格 — 分享網站設計、開發技術與數位行銷的實務心得。"
+>
+  <section class="container" style="padding-top: var(--space-16); padding-bottom: var(--space-16);">
+    <h1 style="margin-bottom: var(--space-4);">Blog</h1>
+    <p style="color: var(--color-text-muted); margin-bottom: var(--space-12);">
+      第 {currentPage} 頁
+    </p>
+
+    <div class="card-grid">
+      {posts.map((post: any) => (
+        <BlogCard
+          title={post.data.title}
+          date={post.data.date}
+          description={post.data.description}
+          tags={post.data.tags}
+          slug={post.id}
+        />
+      ))}
+    </div>
+
+    <Pagination
+      currentPage={currentPage}
+      totalPages={totalPages}
+      baseUrl={`${base}blog`}
+    />
+  </section>
+</BaseLayout>

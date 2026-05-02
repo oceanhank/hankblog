@@ -1,0 +1,86 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const services = [
+  { title: '網站設計與開發', desc: '從品牌識別到上線，提供完整的網站設計與前端開發服務，確保視覺美感與效能兼顧。' },
+  { title: '電商平台建置', desc: '打造轉換率優先的電商網站，整合金流、庫存管理與行銷工具。' },
+  { title: '品牌識別設計', desc: '幫助新創與中小企業建立一致的品牌視覺系統，從 Logo 到完整設計指南。' },
+  { title: 'SEO 優化', desc: '透過技術 SEO 與內容策略，提升搜尋排名，吸引更多自然流量。' },
+];
+---
+
+<BaseLayout
+  title="About"
+  description="認識 Hank Chou — 擁有 10 年經驗的網站設計師與開發者，專注於打造高質感的數位體驗。"
+>
+  <section class="container" style="padding-top: var(--space-16); padding-bottom: var(--space-16); max-width: 800px;">
+    <h1 style="margin-bottom: var(--space-8);">About Me</h1>
+
+    <!-- Personal Intro -->
+    <div style="margin-bottom: var(--space-12);">
+      <p style="font-size: 1.125rem; line-height: 1.8; margin-bottom: var(--space-4);">
+        嗨，我是 <strong>Hank Chou</strong>，一位擁有超過 10 年經驗的網站設計師與前端開發者。
+      </p>
+      <p style="color: var(--color-text-muted); line-height: 1.8; margin-bottom: var(--space-4);">
+        我熱愛將複雜的問題簡化為優雅的設計，專注於用戶體驗與視覺美感的結合。過去曾協助各類型企業——從新創到傳統產業——建立數位形象，打造真正對業務有幫助的網站。
+      </p>
+      <p style="color: var(--color-text-muted); line-height: 1.8;">
+        工作之餘，我透過這個部落格分享設計與開發的實務心得，希望能幫助更多人在數位世界中脫穎而出。
+      </p>
+    </div>
+
+    <!-- Services -->
+    <div style="margin-bottom: var(--space-12);">
+      <h2 style="margin-bottom: var(--space-8);">我能幫你做什麼</h2>
+      <div class="services-grid">
+        {services.map(({ title, desc }) => (
+          <div class="service-card">
+            <h3 style="margin-bottom: var(--space-3); font-size: 1.1rem;">{title}</h3>
+            <p style="color: var(--color-text-muted); font-size: 0.9rem; line-height: 1.7; margin: 0;">{desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Contact -->
+    <div class="contact-box">
+      <h2 style="margin-bottom: var(--space-4);">聯絡我</h2>
+      <p style="color: var(--color-text-muted); margin-bottom: var(--space-6);">
+        有專案想討論？直接寄信給我吧，我通常在 1-2 個工作天內回覆。
+      </p>
+      <a href="mailto:o.d.chou@gmail.com" class="btn btn-primary">
+        o.d.chou@gmail.com
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .services-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-6);
+  }
+
+  .service-card {
+    background-color: var(--color-card-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
+    padding: var(--space-6);
+  }
+
+  .contact-box {
+    background-color: var(--color-accent-teal);
+    border-radius: 0.75rem;
+    padding: var(--space-8);
+    color: #fff;
+  }
+
+  .contact-box h2 { color: #fff; }
+
+  .contact-box p { color: rgba(255, 255, 255, 0.8); }
+
+  @media (max-width: 640px) {
+    .services-grid { grid-template-columns: 1fr; }
+  }
+</style>

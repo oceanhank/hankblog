@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  const tagSet = new Set(posts.flatMap((post) => post.data.tags));
+
+  return Array.from(tagSet).map((tag) => ({
+    params: { tag },
+    props: {
+      tag,
+      posts: posts
+        .filter((post) => post.data.tags.includes(tag))
+        .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()),
+    },
+  }));
+}
+
+const { tag, posts } = Astro.props;
+---
+
+<BaseLayout
+  title={`標籤：${tag}`}
+  description={`所有標記為「${tag}」的文章列表。`}
+>
+  <section class="container" style="padding-top: var(--space-16); padding-bottom: var(--space-16);">
+    <div style="margin-bottom: var(--space-8);">
+      <p style="color: var(--color-text-muted); margin-bottom: var(--space-2);">標籤</p>
+      <h1>#{tag}</h1>
+      <p style="color: var(--color-text-muted); margin-top: var(--space-2);">{posts.length} 篇文章</p>
+    </div>
+
+    {posts.length === 0 ? (
+      <p style="color: var(--color-text-muted);">此標籤目前沒有文章。</p>
+    ) : (
+      <div class="card-grid">
+        {posts.map((post: any) => (
+          <BlogCard
+            title={post.data.title}
+            date={post.data.date}
+            description={post.data.description}
+            tags={post.data.tags}
+            slug={post.id}
+          />
+        ))}
+      </div>
+    )}
+  </section>
+</BaseLayout>

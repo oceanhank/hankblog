@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import Pagination from '../../components/Pagination.astro';
+import { getCollection } from 'astro:content';
+
+const base = import.meta.env.BASE_URL;
+const PAGE_SIZE = 10;
+
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const posts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const totalPages = Math.ceil(posts.length / PAGE_SIZE);
+const pagePosts = posts.slice(0, PAGE_SIZE);
+---
+
+<BaseLayout
+  title="Blog"
+  description="Hank Chou 的部落格 — 分享網站設計、開發技術與數位行銷的實務心得。"
+>
+  <section class="container" style="padding-top: var(--space-16); padding-bottom: var(--space-16);">
+    <h1 style="margin-bottom: var(--space-4);">Blog</h1>
+    <p style="color: var(--color-text-muted); margin-bottom: var(--space-12);">
+      分享設計、開發與數位行銷的實務心得
+    </p>
+
+    {pagePosts.length === 0 ? (
+      <p style="color: var(--color-text-muted);">目前還沒有文章，敬請期待！</p>
+    ) : (
+      <div class="card-grid">
+        {pagePosts.map((post) => (
+          <BlogCard
+            title={post.data.title}
+            date={post.data.date}
+            description={post.data.description}
+            tags={post.data.tags}
+            slug={post.id}
+          />
+        ))}
+      </div>
+    )}
+
+    <Pagination
+      currentPage={1}
+      totalPages={totalPages}
+      baseUrl={`${base}blog`}
+    />
+  </section>
+</BaseLayout>

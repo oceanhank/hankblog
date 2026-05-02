@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://oceanhank.github.io/hankblog/sitemap-index.xml

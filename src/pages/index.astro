@@ -1,0 +1,351 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import WorkCard from '../components/WorkCard.astro';
+import { getCollection } from 'astro:content';
+import { testimonials } from '../data/testimonials';
+
+const base = import.meta.env.BASE_URL;
+
+const allWorks = await getCollection('works', ({ data }) => !data.draft);
+const featuredWorks = allWorks
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+
+const services = [
+  { icon: '🌐', label: '網站設計', count: '30+ 專案' },
+  { icon: '📱', label: '行動 App 設計', count: '15+ 專案' },
+  { icon: '🎨', label: '品牌識別設計', count: '20+ 專案' },
+];
+---
+
+<BaseLayout
+  title="Hank Chou — Web Designer & Developer"
+  description="我是 Hank Chou，專注於網站設計與開發，幫助品牌打造高質感的數位體驗。"
+  isHome={true}
+>
+  <!-- Hero Section -->
+  <section class="hero section">
+    <div class="container hero-inner">
+      <div class="hero-content">
+        <h1>Hey There,<br />I'm <span class="highlight">Hank Chou</span></h1>
+        <p class="hero-tagline">
+          我設計讓人喜愛的網站，幫助品牌建立數位競爭力。
+        </p>
+        <div class="hero-actions">
+          <a href={`${base}works`} class="btn btn-primary">查看作品集</a>
+          <a href={`mailto:o.d.chou@gmail.com`} class="btn btn-outline">聯絡我</a>
+        </div>
+      </div>
+      <div class="hero-badge">
+        <div class="badge-circle">
+          <span class="badge-years">10</span>
+          <span class="badge-label">YEARS<br />EXPERIENCE</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="services section" style="background-color: var(--color-card-bg);">
+    <div class="container">
+      <div class="services-grid">
+        <div class="services-list">
+          {services.map(({ icon, label, count }) => (
+            <div class="service-item">
+              <span class="service-icon">{icon}</span>
+              <div>
+                <p class="service-label">{label}</p>
+                <p class="service-count">{count}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div class="services-copy">
+          <h2>What do I help?</h2>
+          <p>
+            我協助您找到解決方案，透過設計思維打造數位產品。無論是品牌網站、電商平台還是行動應用，都能提供從設計到上線的完整服務。
+          </p>
+          <div class="services-stats">
+            <div>
+              <span class="stat-number">50+</span>
+              <span class="stat-label">完成專案</span>
+            </div>
+            <div>
+              <span class="stat-number">30+</span>
+              <span class="stat-label">滿意客戶</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Works Section -->
+  {featuredWorks.length > 0 && (
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>My Latest Works</h2>
+          <a href={`${base}works`} class="explore-link">Explore More Works →</a>
+        </div>
+        <p style="color: var(--color-text-muted); margin-bottom: var(--space-8);">
+          數位體驗的完美解決方案
+        </p>
+        <div class="card-grid">
+          {featuredWorks.map((work) => (
+            <WorkCard
+              title={work.data.title}
+              coverImage={work.data.coverImage}
+              description={work.data.description}
+              tags={work.data.tags}
+              slug={work.id}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Testimonials Section -->
+  <section class="testimonials section" style="background-color: var(--color-card-bg);">
+    <div class="container">
+      <h2 class="section-title">People talk about us</h2>
+      <p class="section-subtitle">客戶的反饋是我們最大的動力</p>
+      <div class="testimonials-grid">
+        {testimonials.map(({ quote, name, title }) => (
+          <div class="testimonial-card">
+            <p class="testimonial-quote">"{quote}"</p>
+            <p class="testimonial-name">{name}</p>
+            <p class="testimonial-title">{title}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta section">
+    <div class="container cta-inner">
+      <div>
+        <h2>Let's make something<br />amazing together.</h2>
+        <p class="cta-sub">Start by <a href="mailto:o.d.chou@gmail.com" class="cta-link">saying hi</a></p>
+      </div>
+      <div class="cta-info">
+        <p><strong>Information</strong></p>
+        <p style="color: var(--color-text-muted);">o.d.chou@gmail.com</p>
+        <nav>
+          <ul class="cta-links">
+            <li><a href={`${base}works`}>Works</a></li>
+            <li><a href={`${base}blog`}>Blog</a></li>
+            <li><a href={`${base}about`}>About</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero { background-color: var(--color-bg); }
+
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: var(--space-8);
+    min-height: calc(100vh - 4rem);
+  }
+
+  .hero-content h1 { margin-bottom: var(--space-6); }
+
+  .highlight { color: var(--color-accent-orange); }
+
+  .hero-tagline {
+    font-size: 1.125rem;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-8);
+    max-width: 480px;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+
+  .hero-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .badge-circle {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    border: 3px solid var(--color-accent-teal);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-card-bg);
+  }
+
+  .badge-years {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--color-accent-teal);
+    line-height: 1;
+  }
+
+  .badge-label {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+    text-align: center;
+    text-transform: uppercase;
+    line-height: 1.4;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-16);
+    align-items: center;
+  }
+
+  .service-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-4) 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .service-icon { font-size: 1.5rem; }
+  .service-label { font-weight: 700; margin: 0; }
+  .service-count { font-size: 0.85rem; color: var(--color-text-muted); margin: 0; }
+
+  .services-copy h2 { margin-bottom: var(--space-4); }
+  .services-copy p { color: var(--color-text-muted); }
+
+  .services-stats {
+    display: flex;
+    gap: var(--space-8);
+    margin-top: var(--space-6);
+  }
+
+  .stat-number {
+    display: block;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--color-accent-orange);
+  }
+
+  .stat-label {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-4);
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+
+  .explore-link {
+    color: var(--color-accent-orange);
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+
+  .section-subtitle {
+    text-align: center;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-8);
+    margin-top: calc(-1 * var(--space-8));
+  }
+
+  .testimonials-grid {
+    display: grid;
+    gap: var(--space-6);
+    grid-template-columns: 1fr;
+  }
+
+  .testimonial-card {
+    background-color: var(--color-bg);
+    border-radius: 0.75rem;
+    padding: var(--space-6);
+    border: 1px solid var(--color-border);
+  }
+
+  .testimonial-quote {
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    margin-bottom: var(--space-4);
+  }
+
+  .testimonial-name { font-weight: 700; margin: 0; }
+  .testimonial-title { font-size: 0.85rem; color: var(--color-text-muted); margin: 0; }
+
+  .cta { background-color: var(--color-bg); }
+
+  .cta-inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--space-16);
+    align-items: center;
+  }
+
+  .cta-inner h2 { margin-bottom: var(--space-4); }
+
+  .cta-sub { font-size: 1.25rem; color: var(--color-text-muted); }
+
+  .cta-link {
+    color: var(--color-accent-orange);
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .cta-links {
+    list-style: none;
+    margin-top: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .cta-links a {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    font-weight: 600;
+    transition: color 0.2s;
+  }
+
+  .cta-links a:hover { color: var(--color-accent-orange); }
+
+  @media (max-width: 768px) {
+    .hero-inner {
+      grid-template-columns: 1fr;
+      min-height: auto;
+      padding: var(--space-12) 0;
+    }
+    .hero-badge { display: none; }
+    .services-grid { grid-template-columns: 1fr; gap: var(--space-8); }
+    .cta-inner { grid-template-columns: 1fr; gap: var(--space-8); }
+  }
+
+  @media (min-width: 768px) {
+    .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (min-width: 1280px) {
+    .testimonials-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>
