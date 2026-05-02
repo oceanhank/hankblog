@@ -24,24 +24,43 @@ const services = [
   isHome={true}
 >
   <!-- Hero Section -->
-  <section class="hero section">
-    <div class="container hero-inner">
-      <div class="hero-content">
-        <h1>Hey There,<br />I'm <span class="highlight">Hank Chou</span></h1>
-        <p class="hero-tagline">
-          我設計讓人喜愛的網站，幫助品牌建立數位競爭力。
-        </p>
-        <div class="hero-actions">
-          <a href={`${base}works`} class="btn btn-primary">查看作品集</a>
-          <a href={`mailto:o.d.chou@gmail.com`} class="btn btn-outline">聯絡我</a>
+  <section class="hero">
+    <div class="container hero-grid">
+
+      <!-- LEFT column -->
+      <div class="hero-left">
+        <h1 class="hero-title">Hey There,<br />I'm <span class="highlight">Hank Chou</span></h1>
+        <a href="mailto:o.d.chou@gmail.com" class="hero-email">o.d.chou@gmail.com</a>
+        <div class="hero-exp">
+          <span class="exp-num">10</span>
+          <span class="exp-label">YEARS<br />EXPERIENCE</span>
         </div>
       </div>
-      <div class="hero-badge">
-        <div class="badge-circle">
-          <span class="badge-years">10</span>
-          <span class="badge-label">YEARS<br />EXPERIENCE</span>
+
+      <!-- CENTER column: photo + brush stroke -->
+      <div class="hero-center">
+        <div class="hero-photo-wrap">
+          <svg class="brush-stroke" viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M80 320 C60 200, 120 80, 240 60 C360 40, 440 140, 420 280 C400 400, 300 460, 180 440 C100 428, 90 380, 80 320 Z" fill="#1B4D4E" opacity="0.88"/>
+            <path d="M320 100 C380 80, 460 160, 440 260 C420 340, 360 400, 300 380 C380 300, 400 200, 320 100 Z" fill="#1B4D4E" opacity="0.55"/>
+          </svg>
+          <img
+            src={`${base}images/hank.jpeg`}
+            alt="Hank Chou — Web Designer & Developer"
+            class="hero-photo"
+          />
         </div>
       </div>
+
+      <!-- RIGHT column -->
+      <div class="hero-right">
+        <p class="hero-tagline">我設計讓人喜愛的網站，<br />幫助品牌建立數位競爭力。</p>
+        <div class="hero-cert">
+          <div class="cert-icon">✦</div>
+          <p class="cert-text">專業網站設計<br />& 前端開發</p>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -146,66 +165,146 @@ const services = [
 </BaseLayout>
 
 <style>
-  .hero { background-color: var(--color-bg); }
+  /* ── Hero ── */
+  .hero {
+    background-color: var(--color-bg);
+    padding: var(--space-16) 0 var(--space-12);
+    min-height: calc(100vh - 4rem);
+    display: flex;
+    align-items: center;
+  }
 
-  .hero-inner {
+  .hero-grid {
     display: grid;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr 1.1fr 1fr;
     align-items: center;
     gap: var(--space-8);
-    min-height: calc(100vh - 4rem);
   }
 
-  .hero-content h1 { margin-bottom: var(--space-6); }
+  /* Left */
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
 
-  .highlight { color: var(--color-accent-orange); }
+  .hero-title {
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    line-height: 1.1;
+    color: var(--color-text);
+    margin: 0;
+  }
 
-  .hero-tagline {
-    font-size: 1.125rem;
+  .highlight { color: var(--color-accent-teal); }
+
+  .hero-email {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-accent-orange);
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .hero-email:hover { opacity: 0.75; }
+
+  .hero-exp {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-3);
+    margin-top: auto;
+  }
+
+  .exp-num {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: var(--color-text);
+    line-height: 1;
+  }
+
+  .exp-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
     color: var(--color-text-muted);
-    margin-bottom: var(--space-8);
-    max-width: 480px;
+    line-height: 1.5;
   }
 
-  .hero-actions {
+  /* Center */
+  .hero-center {
     display: flex;
-    gap: var(--space-4);
-    flex-wrap: wrap;
-  }
-
-  .hero-badge {
-    display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
   }
 
-  .badge-circle {
-    width: 140px;
-    height: 140px;
+  .hero-photo-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    aspect-ratio: 3/4;
+  }
+
+  .brush-stroke {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+
+  .hero-photo {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 85%;
+    height: 95%;
+    object-fit: cover;
+    object-position: top center;
+    border-radius: 2px;
+    z-index: 1;
+  }
+
+  /* Right */
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+    align-items: flex-start;
+  }
+
+  .hero-tagline {
+    font-size: 1.05rem;
+    color: var(--color-text-muted);
+    line-height: 1.8;
+    margin: 0;
+  }
+
+  .hero-cert {
+    border: 2px solid var(--color-border);
     border-radius: 50%;
-    border: 3px solid var(--color-accent-teal);
+    width: 130px;
+    height: 130px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: var(--color-card-bg);
+    gap: var(--space-2);
   }
 
-  .badge-years {
-    font-size: 2.5rem;
-    font-weight: 800;
+  .cert-icon {
+    font-size: 1.5rem;
     color: var(--color-accent-teal);
-    line-height: 1;
   }
 
-  .badge-label {
-    font-size: 0.6rem;
+  .cert-text {
+    font-size: 0.65rem;
     font-weight: 700;
-    letter-spacing: 0.05em;
-    color: var(--color-text-muted);
-    text-align: center;
     text-transform: uppercase;
-    line-height: 1.4;
+    letter-spacing: 0.06em;
+    text-align: center;
+    color: var(--color-text);
+    line-height: 1.5;
+    margin: 0;
   }
 
   .services-grid {
@@ -330,13 +429,19 @@ const services = [
 
   .cta-links a:hover { color: var(--color-accent-orange); }
 
-  @media (max-width: 768px) {
-    .hero-inner {
+  @media (max-width: 900px) {
+    .hero-grid {
       grid-template-columns: 1fr;
+      gap: var(--space-8);
       min-height: auto;
-      padding: var(--space-12) 0;
     }
-    .hero-badge { display: none; }
+    .hero-center { order: -1; }
+    .hero-photo-wrap { max-width: 300px; margin: 0 auto; }
+    .hero-right { flex-direction: row; flex-wrap: wrap; align-items: center; }
+    .hero-cert { width: 100px; height: 100px; }
+  }
+
+  @media (max-width: 640px) {
     .services-grid { grid-template-columns: 1fr; gap: var(--space-8); }
     .cta-inner { grid-template-columns: 1fr; gap: var(--space-8); }
   }
