@@ -47,22 +47,18 @@ const services = [
 
       <!-- RIGHT column -->
       <div class="hero-right">
-        <div class="hero-expertise">
-          <span class="expertise-rule"></span>
-          <span class="expertise-label">Web Designer</span>
-          <span class="expertise-rule"></span>
-          <span class="expertise-label expertise-label--accent">& Developer</span>
-          <span class="expertise-rule"></span>
-        </div>
-        <div class="hero-stats">
-          <div class="hero-stat">
-            <span class="stat-val">50+</span>
-            <span class="stat-desc">完成專案</span>
-          </div>
-          <div class="hero-stat-divider"></div>
-          <div class="hero-stat">
-            <span class="stat-val">30+</span>
-            <span class="stat-desc">滿意客戶</span>
+        <div class="hero-card">
+          <p class="hero-card-eyebrow">Creative Professional</p>
+          <h2 class="hero-card-title">Web<br /><em>Designer</em><br /><span class="hero-card-sub">& Developer</span></h2>
+          <div class="hero-card-stats">
+            <div class="hero-card-stat">
+              <strong class="hcs-num">50<span class="hcs-plus">+</span></strong>
+              <span class="hcs-label">完成專案</span>
+            </div>
+            <div class="hero-card-stat">
+              <strong class="hcs-num">30<span class="hcs-plus">+</span></strong>
+              <span class="hcs-label">滿意客戶</span>
+            </div>
           </div>
         </div>
       </div>
@@ -246,70 +242,81 @@ const services = [
   /* Right */
   .hero-right {
     display: flex;
-    flex-direction: column;
-    gap: var(--space-10);
     align-items: flex-start;
     justify-content: center;
   }
 
-  .hero-expertise {
+  .hero-card {
     display: flex;
     flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  .expertise-rule {
-    display: block;
-    width: 48px;
-    height: 1.5px;
-    background-color: var(--color-accent-teal);
-    border-radius: 1px;
-  }
-
-  .expertise-label {
-    font-size: 0.7rem;
-    font-weight: 800;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--color-text);
-  }
-
-  .expertise-label--accent {
-    color: var(--color-accent-teal);
-  }
-
-  .hero-stats {
-    display: flex;
-    align-items: center;
     gap: var(--space-6);
+    padding: 2rem 2rem 2rem 1.75rem;
+    border-left: 2px solid var(--color-accent-teal);
   }
 
-  .hero-stat {
+  .hero-card-eyebrow {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-accent-teal);
+    margin: 0;
+  }
+
+  .hero-card-title {
+    font-size: clamp(1.8rem, 2.8vw, 2.6rem);
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--color-text);
+    margin: 0;
+    font-style: normal;
+  }
+
+  .hero-card-title em {
+    font-style: italic;
+    color: var(--color-accent-teal);
+    font-weight: 800;
+  }
+
+  .hero-card-sub {
+    font-size: 0.9em;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    font-style: normal;
+    letter-spacing: 0.02em;
+  }
+
+  .hero-card-stats {
+    display: flex;
+    gap: var(--space-8);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .hero-card-stat {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 4px;
   }
 
-  .stat-val {
-    font-size: 2.2rem;
+  .hcs-num {
+    font-size: 2rem;
     font-weight: 800;
     color: var(--color-accent-orange);
     line-height: 1;
+    letter-spacing: -0.02em;
   }
 
-  .stat-desc {
+  .hcs-plus {
+    font-size: 1.2rem;
+  }
+
+  .hcs-label {
     font-size: 0.7rem;
     font-weight: 600;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.08em;
     color: var(--color-text-muted);
     text-transform: uppercase;
-  }
-
-  .hero-stat-divider {
-    width: 1px;
-    height: 40px;
-    background-color: var(--color-border);
-    flex-shrink: 0;
   }
 
   .services-grid {
