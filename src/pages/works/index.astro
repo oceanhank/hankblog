@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import WorkCard from '../../components/WorkCard.astro';
+import CtaSection from '../../components/CtaSection.astro';
 import { getCollection } from 'astro:content';
 
 const allWorks = await getCollection('works', ({ data }) => !data.draft);
@@ -33,4 +34,5 @@ const works = allWorks.sort((a, b) => b.data.date.valueOf() - a.data.date.valueO
       </div>
     )}
   </section>
+  <CtaSection />
 </BaseLayout>

@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BlogCard from '../../components/BlogCard.astro';
 import Pagination from '../../components/Pagination.astro';
+import CtaSection from '../../components/CtaSection.astro';
 import { getCollection } from 'astro:content';
 
 const base = (import.meta.env.BASE_URL as string).replace(/\/?$/, '/');
@@ -46,4 +47,5 @@ const pagePosts = posts.slice(0, PAGE_SIZE);
       baseUrl={`${base}blog`}
     />
   </section>
+  <CtaSection />
 </BaseLayout>

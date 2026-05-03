@@ -1,0 +1,127 @@
+---
+const base = (import.meta.env.BASE_URL as string).replace(/\/?$/, '/');
+const pathname = Astro.url.pathname;
+
+const ctaLinks = [
+  { href: `${base}`, label: 'Home' },
+  { href: `${base}works`, label: 'Works' },
+  { href: `${base}blog`, label: 'Blog' },
+  { href: `${base}about`, label: 'About' },
+];
+
+function isCtaActive(href: string): boolean {
+  if (href === base || href === `${base}/`) {
+    return pathname === base || pathname === `${base}/`;
+  }
+  return pathname.startsWith(href);
+}
+---
+
+<section class="cta section">
+  <div class="container cta-inner">
+    <div>
+      <h2>Let's make something<br />amazing together.</h2>
+      <p class="cta-sub">Start by <a href="mailto:o.d.chou@gmail.com" class="cta-link">saying hi</a></p>
+    </div>
+    <div class="cta-info">
+      <p class="cta-info-title">Information</p>
+      <p class="cta-info-email">o.d.chou@gmail.com</p>
+      <nav>
+        <ul class="cta-links">
+          {ctaLinks.map(({ href, label }) => (
+            <li>
+              <a href={href} class:list={['cta-link-item', { active: isCtaActive(href) }]}>
+                <span class="cta-paren cta-paren-l">(</span>
+                <span>{label}</span>
+                <span class="cta-paren cta-paren-r">)</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta { background-color: var(--color-bg); }
+
+  .cta-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-16);
+    align-items: center;
+  }
+
+  .cta-inner h2 { margin-bottom: var(--space-4); }
+
+  .cta-sub { font-size: 1.25rem; color: var(--color-text-muted); }
+
+  .cta-link {
+    color: var(--color-accent-orange);
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .cta-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+    justify-self: center;
+  }
+
+  .cta-info-title {
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin: 0 0 var(--space-2);
+  }
+
+  .cta-info-email {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    margin: 0 0 var(--space-3);
+  }
+
+  .cta-links {
+    list-style: none;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    align-items: flex-start;
+  }
+
+  .cta-link-item {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text);
+    transition: color 0.2s;
+  }
+
+  .cta-paren {
+    font-size: 1rem;
+    font-weight: 400;
+    opacity: 0;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+
+  .cta-paren-l { transform: translateX(6px); }
+  .cta-paren-r { transform: translateX(-6px); }
+
+  .cta-link-item:hover .cta-paren,
+  .cta-link-item.active .cta-paren {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  @media (max-width: 640px) {
+    .cta-inner { grid-template-columns: 1fr; gap: var(--space-8); }
+  }
+</style>

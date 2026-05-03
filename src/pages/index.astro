@@ -1,25 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import WorkCard from '../components/WorkCard.astro';
+import CtaSection from '../components/CtaSection.astro';
 import { getCollection } from 'astro:content';
 import { testimonials } from '../data/testimonials';
 
 const base = (import.meta.env.BASE_URL as string).replace(/\/?$/, '/');
-const pathname = Astro.url.pathname;
-
-const ctaLinks = [
-  { href: `${base}`, label: 'Home' },
-  { href: `${base}works`, label: 'Works' },
-  { href: `${base}blog`, label: 'Blog' },
-  { href: `${base}about`, label: 'About' },
-];
-
-function isCtaActive(href: string): boolean {
-  if (href === base || href === `${base}/`) {
-    return pathname === base || pathname === `${base}/`;
-  }
-  return pathname.startsWith(href);
-}
 
 const allWorks = await getCollection('works', ({ data }) => !data.draft);
 const featuredWorks = allWorks
@@ -142,32 +128,7 @@ const services = [
     </div>
   </section>
 
-  <!-- CTA Section -->
-  <section class="cta section">
-    <div class="container cta-inner">
-      <div>
-        <h2>Let's make something<br />amazing together.</h2>
-        <p class="cta-sub">Start by <a href="mailto:o.d.chou@gmail.com" class="cta-link">saying hi</a></p>
-      </div>
-      <div class="cta-info">
-        <p class="cta-info-title">Information</p>
-        <p class="cta-info-email">o.d.chou@gmail.com</p>
-        <nav>
-          <ul class="cta-links">
-            {ctaLinks.map(({ href, label }) => (
-              <li>
-                <a href={href} class:list={['cta-link-item', { active: isCtaActive(href) }]}>
-                  <span class="cta-paren cta-paren-l">(</span>
-                  <span>{label}</span>
-                  <span class="cta-paren cta-paren-r">)</span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </div>
-    </div>
-  </section>
+  <CtaSection />
 </BaseLayout>
 
 <style>
