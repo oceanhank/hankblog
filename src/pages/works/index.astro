@@ -1,11 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import WorkCard from '../../components/WorkCard.astro';
 import CtaSection from '../../components/CtaSection.astro';
-import { getCollection } from 'astro:content';
-
-const allWorks = await getCollection('works', ({ data }) => !data.draft);
-const works = allWorks.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
 <BaseLayout
@@ -14,25 +9,28 @@ const works = allWorks.sort((a, b) => b.data.date.valueOf() - a.data.date.valueO
 >
   <section class="container" style="padding-top: var(--space-16); padding-bottom: var(--space-16);">
     <h1 style="margin-bottom: var(--space-4);">My Works</h1>
-    <p style="color: var(--color-text-muted); margin-bottom: var(--space-12);">
-      精選設計與開發專案
-    </p>
-
-    {works.length === 0 ? (
-      <p style="color: var(--color-text-muted);">作品集即將更新，敬請期待！</p>
-    ) : (
-      <div class="card-grid">
-        {works.map((work) => (
-          <WorkCard
-            title={work.data.title}
-            coverImage={work.data.coverImage}
-            description={work.data.description}
-            tags={work.data.tags}
-            slug={work.id}
-          />
-        ))}
-      </div>
-    )}
+    <div class="wip-block">
+      <span class="wip-icon">🚧</span>
+      <p class="wip-title">施工中</p>
+      <p class="wip-desc">作品集正在整理中，敬請期待。</p>
+    </div>
   </section>
   <CtaSection />
 </BaseLayout>
+
+<style>
+  .wip-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-3);
+    padding: var(--space-16) 0;
+    border: 1.5px dashed var(--color-border);
+    border-radius: 1rem;
+    text-align: center;
+  }
+  .wip-icon { font-size: 2.5rem; }
+  .wip-title { font-size: 1.25rem; font-weight: 700; color: var(--color-text); margin: 0; }
+  .wip-desc { font-size: 0.9rem; color: var(--color-text-muted); margin: 0; }
+</style>
