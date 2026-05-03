@@ -19,7 +19,9 @@ function isActive(href: string): boolean {
 
 <nav class="nav">
   <div class="container nav-inner">
-    <a href={base} class="nav-logo">Hank Chou</a>
+    <a href={base} class="nav-logo">
+      <img src={`${base}images/logo-hank.png`} alt="Hank Chou" class="nav-logo-img" />
+    </a>
 
     <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
       <span></span>
@@ -67,10 +69,14 @@ function isActive(href: string): boolean {
   }
 
   .nav-logo {
-    font-weight: 800;
-    font-size: 1.25rem;
-    color: var(--color-accent-teal);
-    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-logo-img {
+    height: 32px;
+    width: auto;
+    display: block;
   }
 
   .nav-links {
