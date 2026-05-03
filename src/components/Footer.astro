@@ -1,18 +1,11 @@
 ---
-const base = (import.meta.env.BASE_URL as string).replace(/\/?$/, '/');
 const year = new Date().getFullYear();
 ---
 
 <footer class="footer">
   <div class="container footer-inner">
     <p class="footer-copy">&copy;{year} Hank Chou. All Rights Reserved.</p>
-    <nav aria-label="Footer navigation">
-      <ul class="footer-links">
-        <li><a href={`${base}works`}>Works</a></li>
-        <li><a href={`${base}blog`}>Blog</a></li>
-        <li><a href={`${base}about`}>About</a></li>
-      </ul>
-    </nav>
+    <p class="footer-credit">Design by <span class="footer-name">Hank Chou</span></p>
   </div>
 </footer>
 
@@ -37,20 +30,14 @@ const year = new Date().getFullYear();
     margin: 0;
   }
 
-  .footer-links {
-    display: flex;
-    list-style: none;
-    gap: var(--space-6);
-  }
-
-  .footer-links a {
-    color: var(--color-text-muted);
+  .footer-credit {
     font-size: 0.875rem;
-    font-weight: 600;
-    transition: color 0.2s;
+    color: var(--color-text-muted);
+    margin: 0;
   }
 
-  .footer-links a:hover {
-    color: var(--color-accent-orange);
+  .footer-name {
+    color: #1B4D4E;
+    font-weight: 700;
   }
 </style>
