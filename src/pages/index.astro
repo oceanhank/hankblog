@@ -102,30 +102,18 @@ const services = [
   </section>
 
   <!-- Featured Works Section -->
-  {featuredWorks.length > 0 && (
-    <section class="section">
-      <div class="container">
-        <div class="section-header">
-          <h2>My Latest Works</h2>
-          <a href={`${base}works`} class="explore-link">Explore More Works →</a>
-        </div>
-        <p style="color: var(--color-text-muted); margin-bottom: var(--space-8);">
-          數位體驗的完美解決方案
-        </p>
-        <div class="card-grid">
-          {featuredWorks.map((work) => (
-            <WorkCard
-              title={work.data.title}
-              coverImage={work.data.coverImage}
-              description={work.data.description}
-              tags={work.data.tags}
-              slug={work.id}
-            />
-          ))}
-        </div>
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>My Latest Works</h2>
       </div>
-    </section>
-  )}
+      <div class="wip-block">
+        <span class="wip-icon">🚧</span>
+        <p class="wip-title">施工中</p>
+        <p class="wip-desc">作品集正在整理中，敬請期待。</p>
+      </div>
+    </div>
+  </section>
 
   <!-- Testimonials Section -->
   <section class="testimonials section" style="background-color: var(--color-card-bg);">
@@ -358,6 +346,33 @@ const services = [
   .stat-label {
     font-size: 0.85rem;
     color: var(--color-text-muted);
+  }
+
+  .wip-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-3);
+    padding: var(--space-16) 0;
+    border: 1.5px dashed var(--color-border);
+    border-radius: 1rem;
+    text-align: center;
+  }
+
+  .wip-icon { font-size: 2.5rem; }
+
+  .wip-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin: 0;
+  }
+
+  .wip-desc {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    margin: 0;
   }
 
   .section-header {
