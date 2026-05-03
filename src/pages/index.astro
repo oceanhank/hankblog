@@ -71,11 +71,9 @@ const services = [
     <div class="container">
       <div class="services-grid">
         <div class="services-list">
-          {services.map(({ icon, label, count, color }) => (
+          {services.map(({ color, label, count }) => (
             <div class="service-item">
-              <div class="service-icon-wrap" style={`background-color: ${color}`}>
-                <span class="service-icon">{icon}</span>
-              </div>
+              <div class="service-icon-wrap" style={`background-color: ${color}`}></div>
               <div class="service-text">
                 <p class="service-label">{label}</p>
                 <p class="service-count">{count}</p>
@@ -315,30 +313,23 @@ const services = [
   .service-item {
     display: flex;
     align-items: center;
-    gap: var(--space-5);
-    padding: var(--space-5) var(--space-5);
+    gap: var(--space-7);
+    padding: var(--space-5) var(--space-7);
     background-color: var(--color-bg);
     border-radius: 1rem;
     box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    width: fit-content;
   }
 
   .service-icon-wrap {
-    width: 56px;
-    height: 56px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     flex-shrink: 0;
   }
 
-  .service-icon {
-    font-size: 1.4rem;
-    filter: grayscale(1) brightness(10);
-  }
-
-  .service-text { display: flex; flex-direction: column; gap: 2px; }
-  .service-label { font-weight: 700; font-size: 1rem; margin: 0; color: var(--color-text); }
+  .service-text { display: flex; flex-direction: column; gap: 3px; }
+  .service-label { font-weight: 700; font-size: 1rem; margin: 0; color: var(--color-text); white-space: nowrap; }
   .service-count { font-size: 0.82rem; color: var(--color-text-muted); margin: 0; }
 
   .services-list { display: flex; flex-direction: column; gap: var(--space-4); }
