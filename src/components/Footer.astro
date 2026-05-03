@@ -1,10 +1,17 @@
 ---
+const base = (import.meta.env.BASE_URL as string).replace(/\/?$/, '/');
 const year = new Date().getFullYear();
 ---
 
 <footer class="footer">
   <div class="container footer-inner">
-    <p class="footer-copy">&copy;{year} All Rights Reserved.</p>
+    <div class="footer-left">
+      <a href={base} class="footer-logo">
+        <img src={`${base}images/logo-hank.png`} alt="Hank Chou" class="footer-logo-img" />
+      </a>
+      <span class="footer-divider"></span>
+      <p class="footer-copy">&copy;{year}. All Rights Reserved.</p>
+    </div>
     <p class="footer-credit">Design by <span class="footer-name">Hank Chou</span></p>
   </div>
 </footer>
@@ -12,28 +19,53 @@ const year = new Date().getFullYear();
 <style>
   .footer {
     border-top: 1px solid var(--color-border);
-    padding: var(--space-8) 0;
-    margin-top: var(--space-16);
+    padding: var(--space-6) 0;
   }
 
   .footer-inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    flex-wrap: wrap;
-    gap: var(--space-4);
+    gap: var(--space-6);
+  }
+
+  .footer-left {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+  }
+
+  .footer-logo {
+    display: flex;
+    align-items: center;
+  }
+
+  .footer-logo-img {
+    height: 36px;
+    width: auto;
+    display: block;
+  }
+
+  .footer-divider {
+    display: block;
+    width: 1px;
+    height: 28px;
+    background-color: var(--color-border);
+    flex-shrink: 0;
   }
 
   .footer-copy {
     color: var(--color-text-muted);
     font-size: 0.875rem;
     margin: 0;
+    white-space: nowrap;
   }
 
   .footer-credit {
     font-size: 0.875rem;
     color: var(--color-text-muted);
     margin: 0;
+    white-space: nowrap;
   }
 
   .footer-name {
