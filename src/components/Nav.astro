@@ -38,9 +38,8 @@ function isActive(href: string): boolean {
       ))}
     </ul>
 
-    <!-- Right: contact + hamburger -->
+    <!-- Right: hamburger only -->
     <div class="nav-right">
-      <a href="mailto:o.d.chou@gmail.com" class="nav-contact">o.d.chou@gmail.com</a>
       <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
         <span></span>
         <span></span>
@@ -75,7 +74,7 @@ function isActive(href: string): boolean {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    height: 4.5rem;
+    height: 7rem;
   }
 
   /* Logo */
@@ -102,10 +101,10 @@ function isActive(href: string): boolean {
   .nav-link {
     display: flex;
     align-items: center;
-    gap: 3px;
-    font-size: 0.72rem;
+    gap: 4px;
+    font-size: 0.88rem;
     font-weight: 700;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--color-text);
     transition: color 0.2s;
@@ -118,7 +117,7 @@ function isActive(href: string): boolean {
 
   /* Parentheses */
   .paren {
-    font-size: 0.85rem;
+    font-size: 1rem;
     font-weight: 400;
     color: var(--color-text);
     opacity: 0;
@@ -141,18 +140,6 @@ function isActive(href: string): boolean {
     align-items: center;
     justify-content: flex-end;
     gap: var(--space-4);
-  }
-
-  .nav-contact {
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--color-text-muted);
-    transition: color 0.2s;
-    white-space: nowrap;
-  }
-
-  .nav-contact:hover {
-    color: var(--color-accent-orange);
   }
 
   /* Hamburger */
@@ -179,15 +166,13 @@ function isActive(href: string): boolean {
       grid-template-columns: 1fr auto;
     }
 
-    .nav-contact { display: none; }
-
     .nav-toggle { display: flex; }
 
     .nav-links {
       display: none;
       flex-direction: column;
       position: absolute;
-      top: 4.5rem;
+      top: 7rem;
       left: 0;
       right: 0;
       background-color: var(--color-bg);
